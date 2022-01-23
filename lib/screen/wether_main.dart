@@ -13,6 +13,8 @@ class _WeatherMainState extends State<WeatherMain> {
   var weatherData;
   var airPollationData;
   double temp = 0.0;
+  double temp_min = 0.0;
+  double temp_max = 0.0;
   String city;
   int pollution;
   var icon = '01d';
@@ -26,6 +28,8 @@ class _WeatherMainState extends State<WeatherMain> {
       print(airPollationData);
       setState(() {
         temp = double.parse('${weatherData['main']['temp']}');
+        temp_min = double.parse('${weatherData['main']['temp_min']}');
+        temp_max = double.parse('${weatherData['main']['temp_max']}');
         icon = weatherData['weather'][0]['icon'];
         pollution =
             (int.parse('${airPollationData['list'][0]['main']['aqi']}'));
@@ -44,7 +48,7 @@ class _WeatherMainState extends State<WeatherMain> {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            'assets/images/임시.jpg',
+            'assets/images/맑음.gif',
             fit: BoxFit.fill,
           ),
           _weatherData(context, size),
@@ -56,42 +60,70 @@ class _WeatherMainState extends State<WeatherMain> {
   Widget _weatherData(BuildContext context, Size size) => Column(
         children: <Widget>[
           SizedBox(
-            height: size.height * 0.05,
+            height: size.height * 0.07,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Image.network('http://openweathermap.org/img/wn/$icon@2x.png'),
-              Text(
-                '${temp.toInt()}°',
-                style: TextStyle(fontSize: 32),
-              ),
+              Container(
+                  transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        '${temp.toInt()}°',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                      Text(
+                        '${temp_min.toInt()}',
+                        style: TextStyle(fontSize: 15, color: Colors.blue),
+                      ),
+                      Text(
+                        '/',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        '${temp_max.toInt()}',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ))
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                width: size.width * 0.2,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                    color: pollution == 1
-                        ? Colors.blue[100]
-                        : pollution == 2
-                            ? Colors.yellow[100]
-                            : pollution == 3
-                                ? Colors.yellow
-                                : pollution == 4
-                                    ? Colors.red[300]
-                                    : pollution == 5
-                                        ? Colors.red
-                                        : Colors.black,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: const Text('미세먼지'),
-              ),
-            ],
+          Container(
+            transform: Matrix4.translationValues(0.0, -10.0, 0.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.center,
+                  width: size.width * 0.2,
+                  height: size.height * 0.05,
+                  decoration: BoxDecoration(
+                      color: pollution == 1
+                          ? Colors.green[200]
+                          : pollution == 2
+                              ? Colors.yellow[100]
+                              : pollution == 3
+                                  ? Colors.yellow
+                                  : pollution == 4
+                                      ? Colors.red[300]
+                                      : pollution == 5
+                                          ? Colors.red
+                                          : Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: const Text(
+                    '미세먼지',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       );
