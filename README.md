@@ -1,7 +1,11 @@
 # 귀여운 날씨어플(2022-01-22 ~ 진행중)
 
 
-https://user-images.githubusercontent.com/92355477/150680731-f1b217c8-ed82-4655-9ccc-436c71891348.mp4
+
+https://user-images.githubusercontent.com/92355477/150684521-31d7b3bc-3ec3-47f9-bc6a-9233479d410a.mp4
+
+
+
 
 <h2>제작 목적</h2>
 
