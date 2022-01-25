@@ -36,6 +36,7 @@ class GetPosition {
     @required String lon,
   }) async {
     var weatherData;
+
     var str =
         'http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$_openweatherkey&units=metric';
     Response response = await get(Uri.parse(str));

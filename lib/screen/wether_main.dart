@@ -16,6 +16,7 @@ class _WeatherMainState extends State<WeatherMain> {
   double temp_min = 0.0;
   double temp_max = 0.0;
   String city;
+  String country;
   int pollution;
   var icon = '01d';
   @override
@@ -31,19 +32,25 @@ class _WeatherMainState extends State<WeatherMain> {
         temp_min = double.parse('${weatherData['main']['temp_min']}');
         temp_max = double.parse('${weatherData['main']['temp_max']}');
         icon = weatherData['weather'][0]['icon'];
+        city = weatherData['name'];
+        country = weatherData['sys']['country'];
         pollution =
             (int.parse('${airPollationData['list'][0]['main']['aqi']}'));
       });
     });
-
-    //print('온도는 ${weatherData['main']['temp']}');
-    //print('는 ${weatherData['sys']['country']}');
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 35,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text('$country $city'),
+      ),
+      extendBodyBehindAppBar: true,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -77,7 +84,7 @@ class _WeatherMainState extends State<WeatherMain> {
                         style: TextStyle(fontSize: 32),
                       ),
                       Text(
-                        '${temp_min.toInt()}',
+                        '${temp_min.toInt()}°',
                         style: TextStyle(fontSize: 15, color: Colors.blue),
                       ),
                       Text(
@@ -85,7 +92,7 @@ class _WeatherMainState extends State<WeatherMain> {
                         style: TextStyle(fontSize: 15),
                       ),
                       Text(
-                        '${temp_max.toInt()}',
+                        '${temp_max.toInt()}°',
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.red,
@@ -106,13 +113,13 @@ class _WeatherMainState extends State<WeatherMain> {
                   height: size.height * 0.05,
                   decoration: BoxDecoration(
                       color: pollution == 1
-                          ? Colors.green[200]
+                          ? Colors.blue[200]
                           : pollution == 2
-                              ? Colors.yellow[100]
+                              ? Colors.blue[300]
                               : pollution == 3
-                                  ? Colors.yellow
+                                  ? Colors.green
                                   : pollution == 4
-                                      ? Colors.red[300]
+                                      ? Colors.yellow
                                       : pollution == 5
                                           ? Colors.red
                                           : Colors.black,
