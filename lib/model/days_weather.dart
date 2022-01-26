@@ -2,7 +2,6 @@ class DaysWeather {
   var temp_min;
   var temp_max;
   var icon;
-  int i = 0;
 
   DaysWeather({this.icon, this.temp_max, this.temp_min});
 

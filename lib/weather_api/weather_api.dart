@@ -35,7 +35,7 @@ class WeatherApi {
     String lon,
   ) async {
     var str =
-        'https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&lang=kr&exclude=current,minutely,minutely,alerts&appid=$_openweatherkey';
+        'https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&lang=kr&exclude=current,minutely,minutely,alerts&appid=$_openweatherkey&units=metric';
     var response = await get(Uri.parse(str));
     var body = http.jsonDecode(response.body);
     return body;

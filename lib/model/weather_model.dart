@@ -1,15 +1,15 @@
 class CurrentWeather {
-  double temp;
+  var temp;
   var temp_min;
   var temp_max;
-  String city;
-  String country;
+  var city;
+  var country;
   var description;
   var icon;
-  double feels_like;
+  var feels_like;
   var wind;
-  int humidity;
-  int pressure;
+  var humidity;
+  var pressure;
   CurrentWeather({
     this.city,
     this.country,

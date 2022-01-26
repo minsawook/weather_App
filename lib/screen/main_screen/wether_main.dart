@@ -6,8 +6,6 @@ import 'package:weather_app/screen/main_screen/main_weather.dart';
 import 'package:weather_app/screen/second_page/etc_data.dart';
 import 'package:weather_app/weather_api/my_location.dart';
 import 'package:weather_app/weather_api/weather_api.dart';
-import 'package:weather_app/screen/main_screen/wether_main.dart';
-import 'package:timer_builder/timer_builder.dart';
 import 'package:intl/intl.dart';
 
 class WeatherMain extends StatefulWidget {
@@ -23,10 +21,13 @@ class _WeatherMainState extends State<WeatherMain> {
   CurrentWeather currentWeatherdata = CurrentWeather();
   Poolation poolation = Poolation();
   DaysWeather daysWeather = DaysWeather();
-  var daysData;
+  List<dynamic> minTemperatureForecast = List.filled(7, 0);
+  List<dynamic> maxTemperatureForecast = List.filled(7, 0);
+  List<dynamic> iconForecast = List.filled(7, 0);
   final PageController controller =
       PageController(initialPage: 0, viewportFraction: 1);
   TextStyle textStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
+  var daysData;
 
   @override
   Future<dynamic> getData() async {
@@ -35,8 +36,16 @@ class _WeatherMainState extends State<WeatherMain> {
         _mylocation.lat.toString(), _mylocation.lon.toString());
     poolation = await weatherApi.getPoolation(
         _mylocation.lat.toString(), _mylocation.lon.toString());
-    daysData = weatherApi.getDaysWeather(
+    daysData = await weatherApi.getDaysWeather(
         _mylocation.lat.toString(), _mylocation.lon.toString());
+
+    for (var i = 0; i < 7; i++) {
+      daysWeather = await DaysWeather.fromJson(daysData, i);
+      minTemperatureForecast[i] = daysWeather.temp_min;
+      maxTemperatureForecast[i] = daysWeather.temp_max;
+      iconForecast[i] = daysWeather.icon;
+    }
+
     return 0;
   }
 
@@ -95,11 +104,12 @@ class _WeatherMainState extends State<WeatherMain> {
                               child: Row(
                                 children: <Widget>[
                                   for (var i = 0; i < 7; i++)
-                                    forecastElement(i + 1
-                                        //  daysWeather =  DaysWeather.fromJson(daysData, i)
-                                        //  minTemperatureForecast[i],
-                                        //   maxTemperatureForecast[i]),
-                                        )
+                                    forecastElement(
+                                        context,
+                                        i + 1,
+                                        minTemperatureForecast[i],
+                                        maxTemperatureForecast[i],
+                                        iconForecast[i]),
                                 ],
                               ),
                             ),
@@ -111,21 +121,19 @@ class _WeatherMainState extends State<WeatherMain> {
         });
   }
 
-  Widget forecastElement(
-    daysFromNow,
-    // DaysWeather daysWeather,
-  ) {
+  Widget forecastElement(BuildContext context, daysFromNow, minTemperature,
+      maxTemperature, iconForecast) {
     var now = new DateTime.now();
     var oneDayFromNow = now.add(new Duration(days: daysFromNow));
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.amber,
+          color: Colors.black54,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
               /* Text(
@@ -137,17 +145,20 @@ class _WeatherMainState extends State<WeatherMain> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                padding: const EdgeInsets.only(top: 1.0, bottom: 1.0),
                 child: Container(
-                  color: Colors.amber,
+                  width: 50,
+                  height: 50,
+                  child: Image.network(
+                      'http://openweathermap.org/img/wn/${iconForecast}@2x.png'),
                 ),
               ),
               Text(
-                'High: ',
+                '최고:${maxTemperature.toInt()}°',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               Text(
-                'Low: ',
+                '최저:${minTemperature.toInt()}°',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
             ],

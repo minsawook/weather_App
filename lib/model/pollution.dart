@@ -1,7 +1,7 @@
 class Poolation {
-  double pm10;
-  double pm2;
-  int aqi;
+  var pm10;
+  var pm2;
+  var aqi;
 
   Poolation({this.aqi, this.pm10, this.pm2});
 

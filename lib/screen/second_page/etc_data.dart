@@ -93,7 +93,7 @@ Widget etcData(BuildContext context, Size size, dynamic currentWeatherdata,
                     height: 18,
                   ),
                   Text(
-                    "${currentWeatherdata.feels_like}°",
+                    "${currentWeatherdata.feels_like.toInt()}°",
                     style: textStyle,
                   ),
                 ],
