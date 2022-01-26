@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/model/days_weather.dart';
 import 'package:weather_app/model/pollution.dart';
 import 'package:weather_app/model/weather_model.dart';
+import 'package:weather_app/screen/main_screen/main_weather.dart';
+import 'package:weather_app/screen/second_page/etc_data.dart';
 import 'package:weather_app/weather_api/my_location.dart';
 import 'package:weather_app/weather_api/weather_api.dart';
+import 'package:weather_app/screen/main_screen/wether_main.dart';
+import 'package:timer_builder/timer_builder.dart';
+import 'package:intl/intl.dart';
 
 class WeatherMain extends StatefulWidget {
   const WeatherMain({Key key}) : super(key: key);
@@ -16,14 +22,20 @@ class _WeatherMainState extends State<WeatherMain> {
   MyLocation _mylocation = MyLocation();
   CurrentWeather currentWeatherdata = CurrentWeather();
   Poolation poolation = Poolation();
+  DaysWeather daysWeather = DaysWeather();
+  var daysData;
   final PageController controller =
       PageController(initialPage: 0, viewportFraction: 1);
+  TextStyle textStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
+
   @override
   Future<dynamic> getData() async {
     await _mylocation.getLocation();
     currentWeatherdata = await weatherApi.getCurrentWeather(
         _mylocation.lat.toString(), _mylocation.lon.toString());
     poolation = await weatherApi.getPoolation(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    daysData = weatherApi.getDaysWeather(
         _mylocation.lat.toString(), _mylocation.lon.toString());
     return 0;
   }
@@ -33,6 +45,7 @@ class _WeatherMainState extends State<WeatherMain> {
     final Size size = MediaQuery.of(context).size;
     return FutureBuilder(
         future: getData(),
+        // ignore: missing_return
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData == false) {
             return Align(
@@ -62,94 +75,85 @@ class _WeatherMainState extends State<WeatherMain> {
                         'assets/images/맑음.gif',
                         fit: BoxFit.fill,
                       ),
-                      _weatherData(context, size)
+                      weatherData(context, size, currentWeatherdata, poolation)
                     ],
                   ),
                 ),
-                Container(
-                  color: Colors.orangeAccent.withOpacity(0.5),
-                  child: Center(
-                    child: Text(
-                      '두 번째 페이지',
-                      style: TextStyle(fontSize: 50),
-                    ),
-                  ),
-                ),
+                Scaffold(
+                    body: Container(
+                        padding: EdgeInsets.all(18),
+                        child: Column(
+                          children: [
+                            etcData(
+                                context, size, currentWeatherdata, textStyle),
+                            Container(
+                                width: size.width,
+                                child: Divider(
+                                    color: Colors.black, thickness: 2.0)),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: <Widget>[
+                                  for (var i = 0; i < 7; i++)
+                                    forecastElement(i + 1
+                                        //  daysWeather =  DaysWeather.fromJson(daysData, i)
+                                        //  minTemperatureForecast[i],
+                                        //   maxTemperatureForecast[i]),
+                                        )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ))),
               ],
             );
           }
         });
   }
 
-  Widget _weatherData(BuildContext context, Size size) => Column(
-        children: <Widget>[
-          SizedBox(
-            height: size.height * 0.07,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+  Widget forecastElement(
+    daysFromNow,
+    // DaysWeather daysWeather,
+  ) {
+    var now = new DateTime.now();
+    var oneDayFromNow = now.add(new Duration(days: daysFromNow));
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
             children: <Widget>[
-              Image.network(
-                  'http://openweathermap.org/img/wn/${currentWeatherdata.icon}@2x.png'),
-              Container(
-                  transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        '${currentWeatherdata.temp.toInt()}°',
-                        style: TextStyle(fontSize: 32),
-                      ),
-                      Text(
-                        '${currentWeatherdata.temp_min.toInt()}°',
-                        style: TextStyle(fontSize: 15, color: Colors.blue),
-                      ),
-                      Text(
-                        '/',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      Text(
-                        '${currentWeatherdata.temp_max.toInt()}°',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ],
-                  ))
+              /* Text(
+                new DateFormat.E().format(oneDayFromNow),
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              ),*/
+              Text(
+                new DateFormat.d().format(oneDayFromNow),
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                child: Container(
+                  color: Colors.amber,
+                ),
+              ),
+              Text(
+                'High: ',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
+              Text(
+                'Low: ',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
             ],
           ),
-          Container(
-            transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  width: size.width * 0.2,
-                  height: size.height * 0.05,
-                  decoration: BoxDecoration(
-                      color: poolation.aqi == 1
-                          ? Colors.blue[200]
-                          : poolation.aqi == 2
-                              ? Colors.blue[300]
-                              : poolation.aqi == 3
-                                  ? Colors.green
-                                  : poolation.aqi == 4
-                                      ? Colors.yellow
-                                      : poolation.aqi == 5
-                                          ? Colors.red
-                                          : Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: const Text(
-                    '미세먼지',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
+        ),
+      ),
+    );
+  }
 }
