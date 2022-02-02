@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/model/days_weather.dart';
+import 'package:weather_app/model/hour_weather.dart';
 import 'package:weather_app/model/poolution.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/screen/main_screen/main_weather.dart';
 import 'package:weather_app/screen/second_page/etc_data.dart';
+import 'package:weather_app/screen/second_page/hour_weather.dart';
+import 'package:weather_app/screen/second_page/poolation_ui.dart';
 import 'package:weather_app/weather_api/my_location.dart';
 import 'package:weather_app/weather_api/weather_api.dart';
 import 'package:weather_app/screen/second_page/days_weather.dart';
@@ -21,9 +24,12 @@ class _WeatherMainState extends State<WeatherMain> {
   CurrentWeather currentWeatherdata = CurrentWeather();
   Poolation poolation = Poolation();
   DaysWeather daysWeather = DaysWeather();
+  HourWeather hourWeather = HourWeather();
   List<dynamic> minTemperatureForecast = List.filled(7, 0);
   List<dynamic> maxTemperatureForecast = List.filled(7, 0);
   List<dynamic> iconForecast = List.filled(7, 0);
+  List<dynamic> HourTemperatureForecast = List.filled(24, 0);
+  List<dynamic> HouriconForecast = List.filled(24, 0);
   final PageController controller =
       PageController(initialPage: 0, viewportFraction: 1);
   TextStyle textStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
@@ -45,7 +51,11 @@ class _WeatherMainState extends State<WeatherMain> {
       maxTemperatureForecast[i] = daysWeather.temp_max;
       iconForecast[i] = daysWeather.icon;
     }
-
+    for (var i = 0; i < 24; i++) {
+      hourWeather = await HourWeather.fromjson(daysData, i);
+      HourTemperatureForecast[i] = hourWeather.temp;
+      HouriconForecast[i] = hourWeather.icon;
+    }
     return 0;
   }
 
@@ -90,29 +100,41 @@ class _WeatherMainState extends State<WeatherMain> {
                     ),
                     Container(
                         padding: EdgeInsets.all(18),
+                        margin: EdgeInsets.all(1),
                         child: Column(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             etcData(
                                 context, size, currentWeatherdata, textStyle),
-                            Container(
-                                width: size.width,
-                                child: Divider(
-                                    color: Colors.black, thickness: 2.0)),
+                            SizedBox(height: size.height * 0.03),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: <Widget>[
-                                  for (var i = 0; i < 7; i++)
-                                    forecastElement(
+                                  for (var i = 0; i < 24; i++)
+                                    hourForecastElement(
                                         context,
                                         i + 1,
-                                        minTemperatureForecast[i],
-                                        maxTemperatureForecast[i],
-                                        iconForecast[i]),
+                                        HourTemperatureForecast[i],
+                                        HouriconForecast[i]),
                                 ],
                               ),
                             ),
-                            SizedBox(height: size.height * 0.015),
+                            SizedBox(height: size.height * 0.03),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                for (var i = 0; i < 7; i++)
+                                  forecastElement(
+                                      context,
+                                      i + 1,
+                                      minTemperatureForecast[i],
+                                      maxTemperatureForecast[i],
+                                      iconForecast[i],
+                                      size),
+                              ],
+                            ),
+                            SizedBox(height: size.height * 0.03),
                             Container(
                               //margin: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -139,36 +161,4 @@ class _WeatherMainState extends State<WeatherMain> {
           }
         });
   }
-
-  Widget poolationData(
-    BuildContext context,
-    Size size,
-    String name,
-    var name2,
-    var good,
-    var fair,
-    var moderate,
-    var poor,
-  ) =>
-      Expanded(
-          child: Container(
-        color: name2 < good
-            ? Colors.blue[200]
-            : name2 < fair
-                ? Colors.blue[300]
-                : name2 < moderate
-                    ? Colors.green
-                    : name2 < poor
-                        ? Colors.yellow
-                        : Colors.red,
-        height: size.height * 0.16,
-        width: size.width * 0.2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('$name'),
-            Text('${name2.toStringAsFixed(1)}')
-          ],
-        ),
-      ));
 }
