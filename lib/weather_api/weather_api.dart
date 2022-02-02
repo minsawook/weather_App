@@ -1,7 +1,7 @@
 import 'dart:convert' as http;
 import 'package:weather_app/model/days_weather.dart';
 import 'package:weather_app/model/weather_model.dart';
-import 'package:weather_app/model/pollution.dart';
+import 'package:weather_app/model/poolution.dart';
 import 'dart:ffi';
 import 'package:http/http.dart';
 
