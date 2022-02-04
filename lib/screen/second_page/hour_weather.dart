@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,8 +10,8 @@ Widget hourForecastElement(BuildContext context, dynamic daysFromNow,
     padding: const EdgeInsets.only(left: 16.0),
     child: Container(
       decoration: BoxDecoration(
-        color: Colors.black54,
-        borderRadius: BorderRadius.circular(10),
+        //color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -18,7 +19,7 @@ Widget hourForecastElement(BuildContext context, dynamic daysFromNow,
           children: <Widget>[
             Text(
               new DateFormat.H().format(oneDayFromNow),
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 20),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 1.0, bottom: 1.0),
@@ -30,8 +31,8 @@ Widget hourForecastElement(BuildContext context, dynamic daysFromNow,
               ),
             ),
             Text(
-              '기온:${Temperature.toInt()}°',
-              style: TextStyle(color: Colors.white, fontSize: 20.0),
+              '${Temperature.toInt()}°',
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
             ),
           ],
         ),

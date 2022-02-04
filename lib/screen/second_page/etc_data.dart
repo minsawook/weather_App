@@ -3,8 +3,54 @@ import 'package:flutter/material.dart';
 Widget etcData(BuildContext context, Size size, dynamic currentWeatherdata,
         TextStyle textStyle) =>
     Container(
-      width: double.infinity,
-      child: Column(
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('풍속'),
+                Text(
+                  "${currentWeatherdata.wind} ㎧",
+                  style: textStyle,
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('습도'),
+                Text(
+                  "${currentWeatherdata.humidity}%",
+                  style: textStyle,
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('체감온도'),
+                Text(
+                  "${currentWeatherdata.feels_like.round()}°",
+                  style: textStyle,
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('기압'),
+                Text(
+                  "${currentWeatherdata.pressure}hPa",
+                  style: textStyle,
+                ),
+              ],
+            ),
+          ],
+        )
+
+        /*Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -60,7 +106,7 @@ Widget etcData(BuildContext context, Size size, dynamic currentWeatherdata,
                         height: 18,
                       ),
                       Text(
-                        "${currentWeatherdata.pressure}psi",
+                        "${currentWeatherdata.pressure}hPa",
                         style: textStyle,
                       ),
                     ],
@@ -94,7 +140,7 @@ Widget etcData(BuildContext context, Size size, dynamic currentWeatherdata,
                         height: 18,
                       ),
                       Text(
-                        "${currentWeatherdata.feels_like.toInt()}°",
+                        "${currentWeatherdata.feels_like.round()}°",
                         style: textStyle,
                       ),
                     ],
@@ -102,5 +148,5 @@ Widget etcData(BuildContext context, Size size, dynamic currentWeatherdata,
                 ],
               ))
         ],
-      ),
-    );
+      ),*/
+        );

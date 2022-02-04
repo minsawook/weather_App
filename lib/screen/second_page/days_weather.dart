@@ -11,22 +11,32 @@ Widget forecastElement(
   var now = new DateTime.now();
   var oneDayFromNow = now.add(new Duration(days: daysFromNow));
   return Container(
-    width: size.width * 0.12,
-    child: Column(
+    height: size.height * 0.055,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text(
-          new DateFormat.E().format(oneDayFromNow),
-        ),
         Container(
-          child: Image.network(
-              'http://openweathermap.org/img/wn/${iconForecast}@2x.png'),
-        ),
-        Text(
-          '${maxTemperature.toInt()}°',
-        ),
-        Text(
-          '${minTemperature.toInt()}°',
-        ),
+            width: size.width * 0.35,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(new DateFormat.E().format(oneDayFromNow)),
+                Image.network(
+                    'http://openweathermap.org/img/wn/${iconForecast}@2x.png'),
+              ],
+            )),
+        Container(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              '${maxTemperature.round()}°/',
+            ),
+            Text(
+              '${minTemperature.round()}°',
+            ),
+          ],
+        ))
       ],
     ),
   );

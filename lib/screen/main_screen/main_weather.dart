@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 Widget weatherData(BuildContext context, Size size, dynamic currentWeatherdata,
-        dynamic poolation) =>
+        dynamic poolation, dynamic tempMin, dynamic tempMax) =>
     Column(
       children: <Widget>[
         SizedBox(
@@ -14,35 +14,52 @@ Widget weatherData(BuildContext context, Size size, dynamic currentWeatherdata,
           children: <Widget>[
             Image.network(
                 'http://openweathermap.org/img/wn/${currentWeatherdata.icon}@2x.png'),
-            Container(
-                transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      '${currentWeatherdata.temp.toInt()}°',
-                      style: TextStyle(fontSize: 32),
-                    ),
-                    Text(
-                      '${currentWeatherdata.temp_min.toInt()}°',
-                      style: TextStyle(fontSize: 15, color: Colors.blue),
-                    ),
-                    Text(
-                      '/',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    Text(
-                      '${currentWeatherdata.temp_max.toInt()}°',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ))
           ],
         ),
         Container(
+          transform: Matrix4.translationValues(
+            0,
+            -20,
+            0,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                '${currentWeatherdata.temp.round()}°',
+                style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Container(
+            transform: Matrix4.translationValues(
+              0,
+              -30,
+              0,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${tempMin.round()}°',
+                  style: TextStyle(fontSize: 35),
+                ),
+                Text(
+                  '/',
+                  style: TextStyle(fontSize: 35),
+                ),
+                Text(
+                  '${tempMax.round()}°',
+                  style: TextStyle(
+                    fontSize: 35,
+                  ),
+                ),
+              ],
+            ))
+        /*Container(
           transform: Matrix4.translationValues(0.0, -10.0, 0.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -55,11 +72,11 @@ Widget weatherData(BuildContext context, Size size, dynamic currentWeatherdata,
                     color: poolation.aqi == 1
                         ? Colors.blue[200]
                         : poolation.aqi == 2
-                            ? Colors.blue[300]
+                            ? Colors.lightGreen
                             : poolation.aqi == 3
-                                ? Colors.green
+                                ? Colors.yellow
                                 : poolation.aqi == 4
-                                    ? Colors.yellow
+                                    ? Colors.orange
                                     : poolation.aqi == 5
                                         ? Colors.red
                                         : Colors.black,
@@ -71,6 +88,6 @@ Widget weatherData(BuildContext context, Size size, dynamic currentWeatherdata,
               ),
             ],
           ),
-        ),
+        ),*/
       ],
     );

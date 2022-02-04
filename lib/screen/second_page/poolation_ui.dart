@@ -10,21 +10,30 @@ Widget poolationData(
   var moderate,
   var poor,
 ) =>
-    Expanded(
-        child: Container(
-      color: name2 < good
-          ? Colors.blue[200]
-          : name2 < fair
-              ? Colors.blue[300]
-              : name2 < moderate
-                  ? Colors.green
-                  : name2 < poor
-                      ? Colors.yellow
-                      : Colors.red,
-      height: size.height * 0.16,
-      width: size.width * 0.2,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[Text('$name'), Text('${name2.toStringAsFixed(1)}')],
+    Container(
+      width: size.width * 0.43,
+      height: size.height * 0.055,
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: name2 < good
+            ? Colors.blue[300]
+            : name2 < fair
+                ? Colors.lightGreen
+                : name2 < moderate
+                    ? Colors.yellow
+                    : name2 < poor
+                        ? Colors.orange
+                        : Colors.red,
       ),
-    ));
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('$name', style: TextStyle(color: Colors.white)),
+          Text(
+            '${name2.toStringAsFixed(1)}',
+            style: TextStyle(color: Colors.white),
+          )
+        ],
+      ),
+    );
