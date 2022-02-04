@@ -4,10 +4,23 @@
 
 
 
-https://user-images.githubusercontent.com/92355477/151170141-a0531799-c381-40c7-8074-aa6d1a7457f3.mp4
 
 
 
+https://user-images.githubusercontent.com/92355477/152125242-f99730a4-abf9-4007-bfa2-ca0996567d96.mp4
+
+
+
+
+<h1>Using Skills</h1>
+dart<br>
+flutter<br>
+
+<h1>Using API</h1>
+<h3> 날씨 api </h3>
+- API(Application Programming Interface)를 이용해 자신 주변의 날씨 정보를 가져옴  <br>
+<h3> 미세먼지api </h3>
+-주변의 공기의 질을 데이터화 해서 가져옴
 
 
 
@@ -25,14 +38,6 @@ https://user-images.githubusercontent.com/92355477/151170141-a0531799-c381-40c7-
 
 - 날씨상황이 급변할때 푸쉬알람으로 알려줌  <br>
 
-<h2>적용기술</h2>
-<h3> Flutter </h3>
-- 플러터를 이용해 하이브리드 어플리케이션 제작 및 기술 적용<br>
-- 안드로이드 스튜디오를 이용해 플러터 기반 프로그래밍 사용  <br>
-<h3> 날씨 api </h3>
-- API(Application Programming Interface)를 이용해 자신 주변의 날씨 정보를 가져옴  <br>
-<h3> 미세먼지api </h3>
--주변의 공기의 질을 데이터화 해서 가져옴
 
 <h2>활용방안</h2>
 1) 캐릭터를 이용한 직관적인 날씨 구분<br>
