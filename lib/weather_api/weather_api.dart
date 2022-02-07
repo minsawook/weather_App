@@ -40,7 +40,7 @@ class WeatherApi {
     //https://api.openweathermap.org/data/2.5/onecall?lat=37.56&lon=127.08&lang=kr&exclude=current,minutely,alerts&appid=2db2f66ff4c3c59a8ede85ea41cecfb6&units=metric
     var response = await get(Uri.parse(str));
     var body = http.jsonDecode(response.body);
-    print(body);
+    print(1);
     return body;
   }
 

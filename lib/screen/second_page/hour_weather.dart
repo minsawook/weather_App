@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 Widget hourForecastElement(BuildContext context, dynamic daysFromNow,
-    dynamic Temperature, dynamic iconForecast) {
-  var now = new DateTime.now();
+    dynamic Temperature, dynamic iconForecast, dynamic now) {
   var oneDayFromNow = now.add(new Duration(hours: daysFromNow));
   return Padding(
     padding: const EdgeInsets.only(left: 16.0),
     child: Container(
       decoration: BoxDecoration(
-        //color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(

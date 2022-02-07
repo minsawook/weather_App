@@ -7,8 +7,8 @@ Widget forecastElement(
     dynamic minTemperature,
     dynamic maxTemperature,
     dynamic iconForecast,
-    Size size) {
-  var now = new DateTime.now();
+    Size size,
+    dynamic now) {
   var oneDayFromNow = now.add(new Duration(days: daysFromNow - 1));
   return Container(
     height: size.height * 0.055,
