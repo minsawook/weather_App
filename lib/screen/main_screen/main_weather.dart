@@ -59,35 +59,5 @@ Widget weatherData(BuildContext context, Size size, dynamic currentWeatherdata,
                 ),
               ],
             ))
-        /*Container(
-          transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                width: size.width * 0.2,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                    color: poolation.aqi == 1
-                        ? Colors.blue[200]
-                        : poolation.aqi == 2
-                            ? Colors.lightGreen
-                            : poolation.aqi == 3
-                                ? Colors.yellow
-                                : poolation.aqi == 4
-                                    ? Colors.orange
-                                    : poolation.aqi == 5
-                                        ? Colors.red
-                                        : Colors.black,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: const Text(
-                  '미세먼지',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        ),*/
       ],
     );

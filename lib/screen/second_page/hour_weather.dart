@@ -18,8 +18,8 @@ Widget hourForecastElement(BuildContext context, dynamic daysFromNow,
         child: Column(
           children: <Widget>[
             Text(
-              new DateFormat.H().format(oneDayFromNow),
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              '${Temperature.toInt()}°',
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 1.0, bottom: 1.0),
@@ -31,8 +31,8 @@ Widget hourForecastElement(BuildContext context, dynamic daysFromNow,
               ),
             ),
             Text(
-              '${Temperature.toInt()}°',
-              style: TextStyle(color: Colors.black, fontSize: 20.0),
+              new DateFormat.H().format(oneDayFromNow) + '시',
+              style: TextStyle(color: Colors.black, fontSize: 12),
             ),
           ],
         ),
