@@ -1,13 +1,14 @@
 # 귀여운 날씨어플(2022-01-22 ~ 진행중)
 
 
+![Screenshot_20220207-164446](https://user-images.githubusercontent.com/92355477/152760574-8abdba67-0dbf-4ac1-99bb-2fdb0b045c5b.jpg)
 
 
 
+![Screenshot_20220207-164455](https://user-images.githubusercontent.com/92355477/152760582-2b39876c-e625-4cfa-b049-bd19a057d471.jpg)
 
 
 
-https://user-images.githubusercontent.com/92355477/152125242-f99730a4-abf9-4007-bfa2-ca0996567d96.mp4
 
 
 
