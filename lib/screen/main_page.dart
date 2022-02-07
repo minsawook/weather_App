@@ -125,7 +125,8 @@ class _WeatherMainState extends State<WeatherMain> {
         if (snapshot.hasData == false) {
           return Align(
             alignment: Alignment.center,
-            child: CircularProgressIndicator(),
+            child: Image.asset("assets/images/흐림.gif"),
+            //child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
           Text('에러');
