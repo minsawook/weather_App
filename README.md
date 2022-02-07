@@ -1,11 +1,9 @@
 # 귀여운 날씨어플(2022-01-22 ~ 진행중)
 
 
-![Screenshot_20220207-164446](https://user-images.githubusercontent.com/92355477/152760574-8abdba67-0dbf-4ac1-99bb-2fdb0b045c5b.jpg)
+![수정됨_Screenshot_20220207-164446](https://user-images.githubusercontent.com/92355477/152760709-237de70c-e2a3-4846-b7c2-0d352892b597.png)
+![수정됨_Screenshot_20220207-164455](https://user-images.githubusercontent.com/92355477/152760717-20b8e16c-6b97-47d5-9fda-503a93a09602.png)
 
-
-
-![Screenshot_20220207-164455](https://user-images.githubusercontent.com/92355477/152760582-2b39876c-e625-4cfa-b049-bd19a057d471.jpg)
 
 
 
