@@ -3,12 +3,19 @@ import 'package:flutter/material.dart';
 
 Color BackgroundColor(
     BuildContext context, dynamic currentWeatherdata, dynamic poolation) {
-  if (currentWeatherdata.icon == '01d' || currentWeatherdata.icon == '01n') {
-    return Color(0xffa0d8ef);
-  } else if ((currentWeatherdata.icon == '01d' ||
-          currentWeatherdata.icon == '01n') &&
-      poolation.aqi > 4) {
+  if (((currentWeatherdata.icon == '01d' || currentWeatherdata.icon == '01n') &&
+          poolation.aqi >= 4) ||
+      ((currentWeatherdata.icon == '02d' ||
+              currentWeatherdata.icon == '02n' ||
+              currentWeatherdata.icon == '03n' ||
+              currentWeatherdata.icon == '03d' ||
+              currentWeatherdata.icon == '04n' ||
+              currentWeatherdata.icon == '04d') &&
+          poolation.aqi >= 4)) {
     return Color(0xff6c9bd2);
+  } else if (currentWeatherdata.icon == '01d' ||
+      currentWeatherdata.icon == '01n') {
+    return Color(0xffa0d8ef);
   } else if (currentWeatherdata.icon == '02d' ||
       currentWeatherdata.icon == '02n' ||
       currentWeatherdata.icon == '03n' ||

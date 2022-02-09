@@ -44,74 +44,6 @@ class _WeatherMainState extends State<WeatherMain> {
   var daysData;
 
   @override
-  Future<dynamic> getData() async {
-    now = DateTime.now();
-    await _mylocation.getLocation();
-    currentWeatherdata = await weatherApi.getCurrentWeather(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    area = await weatherApi.getArea(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    poolation = await weatherApi.getPoolation(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    daysData = await weatherApi.getDaysWeather(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-
-    for (var i = 0; i < 8; i++) {
-      daysWeather = await DaysWeather.fromJson(daysData, i);
-      daysWeather.temp_min;
-      maxTemperatureForecast[i] = daysWeather.temp_max;
-      iconForecast[i] = daysWeather.icon;
-    }
-    for (var i = 0; i < 24; i++) {
-      hourWeather = await HourWeather.fromjson(daysData, i);
-      HourTemperatureForecast[i] = hourWeather.temp;
-      HouriconForecast[i] = hourWeather.icon;
-    }
-    return 0;
-  }
-
-  Future<void> refresh() async {
-    await _mylocation.getLocation();
-    final currentWeatherdata2 = await weatherApi.getCurrentWeather(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    final area2 = await weatherApi.getArea(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    final poolation2 = await weatherApi.getPoolation(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    final daysData2 = await weatherApi.getDaysWeather(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-
-    final List<dynamic> minTemperatureForecast2 = List.filled(8, 0);
-    final List<dynamic> maxTemperatureForecast2 = List.filled(8, 0);
-    final List<dynamic> iconForecast2 = List.filled(8, 0);
-    final List<dynamic> HourTemperatureForecast2 = List.filled(24, 0);
-    final List<dynamic> HouriconForecast2 = List.filled(24, 0);
-
-    for (var i = 0; i < 8; i++) {
-      final daysWeather2 = await DaysWeather.fromJson(daysData2, i);
-      minTemperatureForecast2[i] = daysWeather2.temp_min;
-      maxTemperatureForecast2[i] = daysWeather2.temp_max;
-      iconForecast2[i] = daysWeather.icon;
-    }
-    for (var i = 0; i < 24; i++) {
-      final hourWeather2 = await HourWeather.fromjson(daysData2, i);
-      HourTemperatureForecast2[i] = hourWeather2.temp;
-      HouriconForecast2[i] = hourWeather2.icon;
-    }
-    setState(() {
-      currentWeatherdata = currentWeatherdata2;
-      area = area2;
-      poolation = poolation2;
-      minTemperatureForecast = minTemperatureForecast2;
-      maxTemperatureForecast = maxTemperatureForecast2;
-      iconForecast = iconForecast2;
-      HouriconForecast = HouriconForecast2;
-      HourTemperatureForecast = HourTemperatureForecast2;
-      now = DateTime.now();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return RefreshIndicator(
@@ -257,4 +189,72 @@ class _WeatherMainState extends State<WeatherMain> {
               ));
         }
       });
+
+  @override
+  Future<dynamic> getData() async {
+    now = DateTime.now();
+    await _mylocation.getLocation();
+    currentWeatherdata = await weatherApi.getCurrentWeather(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    area = await weatherApi.getArea(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    poolation = await weatherApi.getPoolation(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    daysData = await weatherApi.getDaysWeather(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+
+    for (var i = 0; i < 8; i++) {
+      daysWeather = await DaysWeather.fromJson(daysData, i);
+      daysWeather.temp_min;
+      maxTemperatureForecast[i] = daysWeather.temp_max;
+      iconForecast[i] = daysWeather.icon;
+    }
+    for (var i = 0; i < 24; i++) {
+      hourWeather = await HourWeather.fromjson(daysData, i);
+      HourTemperatureForecast[i] = hourWeather.temp;
+      HouriconForecast[i] = hourWeather.icon;
+    }
+    return 0;
+  }
+
+  Future<void> refresh() async {
+    await _mylocation.getLocation();
+    final currentWeatherdata2 = await weatherApi.getCurrentWeather(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    final area2 = await weatherApi.getArea(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    final poolation2 = await weatherApi.getPoolation(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+    final daysData2 = await weatherApi.getDaysWeather(
+        _mylocation.lat.toString(), _mylocation.lon.toString());
+
+    final List<dynamic> minTemperatureForecast2 = List.filled(8, 0);
+    final List<dynamic> maxTemperatureForecast2 = List.filled(8, 0);
+    final List<dynamic> iconForecast2 = List.filled(8, 0);
+    final List<dynamic> HourTemperatureForecast2 = List.filled(24, 0);
+    final List<dynamic> HouriconForecast2 = List.filled(24, 0);
+
+    for (var i = 0; i < 8; i++) {
+      final daysWeather2 = await DaysWeather.fromJson(daysData2, i);
+      minTemperatureForecast2[i] = daysWeather2.temp_min;
+      maxTemperatureForecast2[i] = daysWeather2.temp_max;
+      iconForecast2[i] = daysWeather.icon;
+    }
+    for (var i = 0; i < 24; i++) {
+      final hourWeather2 = await HourWeather.fromjson(daysData2, i);
+      HourTemperatureForecast2[i] = hourWeather2.temp;
+      HouriconForecast2[i] = hourWeather2.icon;
+    }
+    setState(() {
+      currentWeatherdata = currentWeatherdata2;
+      area = area2;
+      poolation = poolation2;
+      minTemperatureForecast = minTemperatureForecast2;
+      maxTemperatureForecast = maxTemperatureForecast2;
+      iconForecast = iconForecast2;
+      HouriconForecast = HouriconForecast2;
+      HourTemperatureForecast = HourTemperatureForecast2;
+      now = DateTime.now();
+    });
+  }
 }
