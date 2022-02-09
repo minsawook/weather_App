@@ -1,13 +1,9 @@
-# 귀여운 날씨어플(2022-01-22 ~ 진행중)
+# 귀여운 날씨어플
 
 
+![수정됨_Screenshot_20220207-164446](https://user-images.githubusercontent.com/92355477/152761030-f2773f74-6cb1-46cd-80cf-b565b2bb19bb.png)
+![수정됨_Screenshot_20220207-164455](https://user-images.githubusercontent.com/92355477/152761036-16581ebc-c239-4686-8568-a124614a2a59.png)
 
-
-
-
-
-
-https://user-images.githubusercontent.com/92355477/152125242-f99730a4-abf9-4007-bfa2-ca0996567d96.mp4
 
 
 
@@ -21,6 +17,9 @@ flutter<br>
 - API(Application Programming Interface)를 이용해 자신 주변의 날씨 정보를 가져옴  <br>
 <h3> 미세먼지api </h3>
 -주변의 공기의 질을 데이터화 해서 가져옴
+
+<h3>역 지오코딩 api</h3>
+-좌표를 기반으로 행정구역을 
 
 
 
