@@ -194,31 +194,47 @@ class _WeatherMainState extends State<WeatherMain> {
   Future<dynamic> getData() async {
     now = DateTime.now();
     await _mylocation.getLocation();
-    currentWeatherdata = await weatherApi.getCurrentWeather(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    area = await weatherApi.getArea(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
-    poolation = await weatherApi.getPoolation(
-        _mylocation.lat.toString(), _mylocation.lon.toString());
+
+    weatherApi
+        .getCurrentWeather(
+            _mylocation.lat.toString(), _mylocation.lon.toString())
+        .then((value) {
+      currentWeatherdata = value;
+    });
+    weatherApi
+        .getArea(_mylocation.lat.toString(), _mylocation.lon.toString())
+        .then((value) {
+      area = value;
+    });
+    weatherApi
+        .getPoolation(_mylocation.lat.toString(), _mylocation.lon.toString())
+        .then((value) {
+      poolation = value;
+    });
+    weatherApi
+        .getDaysWeather(_mylocation.lat.toString(), _mylocation.lon.toString())
+        .then((value) async {
+      daysData = value;
+      for (var i = 0; i < 8; i++) {
+        daysWeather = await DaysWeather.fromJson(daysData, i);
+        daysWeather.temp_min;
+        maxTemperatureForecast[i] = daysWeather.temp_max;
+        iconForecast[i] = daysWeather.icon;
+      }
+      for (var i = 0; i < 24; i++) {
+        hourWeather = await HourWeather.fromjson(daysData, i);
+        HourTemperatureForecast[i] = hourWeather.temp;
+        HouriconForecast[i] = hourWeather.icon;
+      }
+    });
     daysData = await weatherApi.getDaysWeather(
         _mylocation.lat.toString(), _mylocation.lon.toString());
-
-    for (var i = 0; i < 8; i++) {
-      daysWeather = await DaysWeather.fromJson(daysData, i);
-      daysWeather.temp_min;
-      maxTemperatureForecast[i] = daysWeather.temp_max;
-      iconForecast[i] = daysWeather.icon;
-    }
-    for (var i = 0; i < 24; i++) {
-      hourWeather = await HourWeather.fromjson(daysData, i);
-      HourTemperatureForecast[i] = hourWeather.temp;
-      HouriconForecast[i] = hourWeather.icon;
-    }
     return 0;
   }
 
   Future<void> refresh() async {
-    await _mylocation.getLocation();
+    /* await _mylocation.getLocation();
+
     final currentWeatherdata2 = await weatherApi.getCurrentWeather(
         _mylocation.lat.toString(), _mylocation.lon.toString());
     final area2 = await weatherApi.getArea(
@@ -255,6 +271,9 @@ class _WeatherMainState extends State<WeatherMain> {
       HouriconForecast = HouriconForecast2;
       HourTemperatureForecast = HourTemperatureForecast2;
       now = DateTime.now();
+    });*/
+    setState(() {
+      getData();
     });
   }
 }

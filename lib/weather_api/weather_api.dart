@@ -16,7 +16,7 @@ class WeatherApi {
     var str =
         'http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&lang=kr&appid=$_openweatherkey&units=metric';
     var response = await get(Uri.parse(str));
-    var body = http.jsonDecode(response.body);
+    var body = await http.jsonDecode(response.body);
     return CurrentWeather.fromJson(body);
   }
 
@@ -27,7 +27,7 @@ class WeatherApi {
     var str =
         'http://api.openweathermap.org/data/2.5/air_pollution?lat=$lat&lon=$lon&appid=$_openweatherkey&units=metric';
     var response = await get(Uri.parse(str));
-    var body = http.jsonDecode(response.body);
+    var body = await http.jsonDecode(response.body);
     return Poolation.fromJson(body);
   }
 
@@ -39,7 +39,7 @@ class WeatherApi {
         'https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&lang=kr&exclude=current,minutely,alerts&appid=$_openweatherkey&units=metric';
     //https://api.openweathermap.org/data/2.5/onecall?lat=37.56&lon=127.08&lang=kr&exclude=current,minutely,alerts&appid=2db2f66ff4c3c59a8ede85ea41cecfb6&units=metric
     var response = await get(Uri.parse(str));
-    var body = http.jsonDecode(response.body);
+    var body = await http.jsonDecode(response.body);
     print(1);
     return body;
   }
@@ -53,7 +53,8 @@ class WeatherApi {
       'X-NCP-APIGW-API-KEY': 'UJ9ZnGlXeS5LjSYsKmwVKTtsIsrAzYRIBdoPq2xw'
     };
     var response = await get(Uri.parse(str), headers: headers);
-    var body = http.jsonDecode(response.body);
+    var body = await http.jsonDecode(response.body);
+    print(body);
     return Area.fromjson(body);
   }
 }
